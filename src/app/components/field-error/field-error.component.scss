@@ -1,0 +1,17 @@
+
+:host {
+  display: block;
+}
+
+.error {
+  background-color: #900;
+  border-radius: 3px;
+  bottom: -22px;
+  color: #FFF;
+  font-size: 10px;
+  left: 0;
+  padding: 3px 5px;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}

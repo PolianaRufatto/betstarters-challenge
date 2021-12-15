@@ -1,0 +1,117 @@
+<ng-template #fillTpl let-geoInfo let-i="index" let-tab="tab">
+  <ng-container [formGroup]="geoInfo">
+    <div class="col-12">
+      <label class="required">country</label>
+
+      <select (ngModelChange)="setRegions($event, i)" class="form-control" formControlName="country">
+        <option *ngIf="countries?.length>1" [ngValue]="null">Select</option>
+        <option *ngFor="let option of countries" [ngValue]="option">{{option.name}}</option>
+      </select>
+      <field-error [control]="geoInfo.get('country')" class="col-12"></field-error>
+    </div>
+
+    <ng-container *ngIf="regions[i]">
+      <div class="col-12 mt-3" [ngSwitch]="!!regions[i].length">
+        <label class="required">region</label>
+        <input *ngSwitchDefault type="text" formControlName="region" class="form-control">
+        <select *ngSwitchCase="true" (ngModelChange)="setProvinces($event, i)" class="form-control" formControlName="region">
+          <option *ngIf="regions[i]?.length>1" [ngValue]="null">Select</option>
+          <option *ngFor="let option of regions[i]" [ngValue]="option">{{option.name}}</option>
+        </select>
+        <field-error [control]="geoInfo.get('region')" class="col-12"></field-error>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="provinces[i] && !options?.hideProvinces">
+      <div class="col-12 mt-3" [ngSwitch]="!!provinces[i].length">
+        <label class="required">province</label>
+
+        <input *ngSwitchDefault type="text" class="form-control" formControlName="province" type="text">
+        <select *ngSwitchCase="true" (ngModelChange)="setCities($event,i)" class="form-control" formControlName="province">
+          <option *ngIf="provinces[i]?.length>1" [ngValue]="null">Select</option>
+          <option *ngFor="let option of provinces[i]" [ngValue]="option">{{option.name}}</option>
+        </select>
+        <field-error [control]="geoInfo.get('province')" class="col-12"></field-error>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="cities[i]">
+      <div class="col-12 mt-3" [ngSwitch]="!!cities[i].length">
+        <label class="required">city</label>
+
+        <input *ngSwitchDefault type="text" class="form-control" formControlName="city">
+        <select *ngSwitchCase="true" class="form-control" formControlName="city">
+          <option *ngIf="cities[i]?.length>1" [ngValue]="null">Select</option>
+          <option *ngFor="let option of cities[i]" [ngValue]="option">{{option.name}}</option>
+        </select>
+        <field-error [control]="geoInfo.get('city')" class="col-12"></field-error>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="tab.key === 3">
+      <div class="col-12 mt-3">
+        <label class="required">address</label>
+
+        <input type="text" class="form-control" formControlName="address">
+        <field-error [control]="geoInfo.get('address')" class="col-12"></field-error>
+      </div>
+      <div class="my-3 col-12">
+        <label class="required">zipCode</label>
+
+        <input type="text" class="form-control" formControlName="zipCode">
+        <field-error [control]="geoInfo.get('zipCode')" class="col-12"></field-error>
+      </div>
+    </ng-container>
+
+
+  </ng-container>
+</ng-template>
+
+<ng-template #geoInfosTpl let-tab>
+  <ng-container *ngFor="let geoInfo of geoInfos.controls; let i = index">
+    <ng-container *ngIf="geoInfo.get('typeId').value === tab.key">
+      <div class="row">
+        <ng-template [ngTemplateOutletContext]="{$implicit: geoInfos.at(i).value.id ? geoInfos.at(i).value:geoInfo, index:i, tab:tab}"
+                     [ngTemplateOutlet]="fillTpl"></ng-template>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+
+<ng-container [ngSwitch]="typeKeys.length>1">
+  <ng-container *ngSwitchDefault>
+    <div [class.hide-tabs]="typeKeys.length === 1" animationDuration="0">
+      <ul #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-4" ngbNav>
+        <li *ngFor="let tab of typeKeys; let i = index" [ngbNavItem]="i">
+          <a ngbNavLink>{{tab.value}}</a>
+          <ng-template ngbNavContent>
+            <ng-container [ngTemplateOutletContext]="{$implicit:tab}" [ngTemplateOutlet]="existsControl(geoInfos?.controls, tab.key) ? geoInfosTpl : emptyTpl"></ng-container>
+          </ng-template>
+        </li>
+      </ul>
+    </div>
+    <div [ngbNavOutlet]="nav"></div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="false" [ngTemplateOutletContext]="{$implicit:typeKeys[0]}" [ngTemplateOutlet]="geoInfos?.controls.length ? geoInfosTpl : emptyTpl"></ng-container>
+</ng-container>
+
+<ng-template #emptyTpl let-tab>
+  <div *ngIf="isVisible(tab)" class="card">
+    <div class="card-body">
+      <div class="row mb-5">
+        <div class="col-10">
+          <h4 class="font-size-sm font-weight-bold txt-text">{{active == 0 ? 'birthTitle' : 'residenceTitle' }}</h4>
+          <p class="font-size-sm txt-text">{{active == 0 ? 'birthDescription' : 'residenceDescription' }}</p>
+        </div>
+
+      </div>
+      <button (click)="addGeoInfo(tab.key)" *ngIf="isVisible(tab)" [disabled]="!geoInfos?.valid || isDisabled"
+              class="btn btn-secondary btn-lg d-flex align-items-center justify-content-center w-50 mx-auto mt-5">
+        <span class="text-capitalize">add</span>
+        <svg class="icon-white ml-2" icon="plus" lib="solid"></svg>
+      </button>
+    </div>
+  </div>
+</ng-template>

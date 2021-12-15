@@ -1,0 +1,103 @@
+<div class="row">
+  <form class="col-md-6" *ngIf="form" [formGroup]="form" (ngSubmit)="submit()">
+
+    <ng-template #buttons let-step="step" let-first="first" let-last="last">
+      <div class="mb-3 mt-5 d-flex buttons" [ngClass]="{'justify-content-between':!first, 'justify-content-end': first}">
+        <button (click)="validateAndNext(-1, step, last)" *ngIf="!first" [disabled]="first" class="btn btn-secondary btn-lg mr-1 text-capitalize" type="button">previous</button>
+        <button (click)="validateAndNext(+1, step, last)" [disabled]="!form.get(step).valid" [type]="last ? 'submit' : 'button'" class="btn btn-secondary btn-lg text-capitalize">
+          {{last ? 'register' : 'next'}}
+        </button>
+      </div>
+    </ng-template>
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="0" [disabled]="isStepDisabled(0)" formGroupName="account">
+        <a ngbNavLink>Account</a>
+
+        <ng-template ngbNavContent>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+            <field-error [control]="form.get('account.email')" class="col-12"></field-error>
+          </div>
+          <div class="form-group">
+            <label for="username">username</label>
+            <input type="text" id="username" formControlName="username" class="form-control">
+            <field-error [control]="form.get('account.username')" class="col-12"></field-error>
+          </div>
+          <div class="form-group">
+            <label for="password">password</label>
+            <input type="password" id="password" formControlName="password" class="form-control">
+            <field-error [control]="form.get('account.password')" class="col-12"></field-error>
+          </div>
+          <div class="form-group">
+            <label for="repeat-password">password</label>
+            <input type="password" id="repeat-password" formControlName="repeatPassword" class="form-control">
+            <field-error [control]="form.get('account.repeatPassword')" class="col-12"></field-error>
+          </div>
+          <div class="form-group">
+            <label for="currency">currency</label>
+            <select id="currency" class="form-control" formControlName="currency">
+              <option value="">Select</option>
+              <option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</option>
+            </select>
+            <field-error [control]="form.get('account.currency')" class="col-12"></field-error>
+          </div>
+          <ng-template [ngTemplateOutlet]="buttons" [ngTemplateOutletContext]="{step:'account', first:true, last:false}"></ng-template>
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="1" [disabled]="isStepDisabled(1)" formGroupName="person">
+        <a ngbNavLink>Person</a>
+        <ng-template ngbNavContent>
+          <div class="form-group">
+            <label for="first-name">first name</label>
+            <input type="text" id="first-name" formControlName="firstName" class="form-control">
+            <field-error [control]="form.get('person.firstName')" class="col-12"></field-error>
+          </div>
+          <div class="form-group">
+            <label for="last-name">first name</label>
+            <input type="text" id="last-name" formControlName="lastName" class="form-control">
+            <field-error [control]="form.get('person.lastName')" class="col-12"></field-error>
+          </div>
+
+          <div class="form-group">
+            <label for="gender">gender</label>
+            <select id="gender" class="form-control" formControlName="gender">
+              <option value="">Select</option>
+              <option *ngFor="let gender of genders" [value]="gender.id">{{gender.type}}</option>
+            </select>
+            <field-error [control]="form.get('person.gender')" class="col-12"></field-error>
+          </div>
+
+          <div class="form-group">
+            <label for="birth-date">birth date</label>
+            <div class="input-group">
+              <input id="birth-date" class="form-control" [maxDate]="maxDate" placeholder="yyyy-mm-dd" formControlName="birthDate" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+            <field-error [control]="form.get('person.birthDate')" class="col-12"></field-error>
+          </div>
+
+          <ng-template [ngTemplateOutlet]="buttons" [ngTemplateOutletContext]="{step:'person', first:false, last:false}"></ng-template>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2" [disabled]="isStepDisabled(2)" formGroupName="address">
+        <a ngbNavLink>Address</a>
+        <ng-template ngbNavContent>
+          <geo-infos formControlName="geoInfo"></geo-infos>
+          <ng-template [ngTemplateOutlet]="buttons" [ngTemplateOutletContext]="{step:'address', first:false, last:true}"></ng-template>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav"></div>
+
+  </form>
+
+  <div class="col-md-6 m-5">
+    <pre>{{form.value|json}}</pre>
+  </div>
+</div>
