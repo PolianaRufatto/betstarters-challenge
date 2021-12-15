@@ -10,6 +10,9 @@
 # dependencies
 /node_modules
 
+# testing
+/tests-results
+
 # profiling files
 chrome-profiler-events*.json
 
@@ -44,3 +47,17 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+ 
+# Other
+package-lock.json
+yarn.lock
+
+## Cypress
+/cypress/downloads
+/cypress/screenshots
+/cypress/videos

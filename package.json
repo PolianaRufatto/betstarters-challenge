@@ -1,12 +1,18 @@
 {
-  "name": "test-for-tester",
+  "name": "betstarters-challenge",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/support/steps"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +29,7 @@
     "bootstrap": "^4.6.0",
     "moment": "^2.29.1",
     "rxjs": "~7.4.0",
+    "tsify": "^5.0.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -30,9 +37,11 @@
     "@angular-devkit/build-angular": "~13.0.4",
     "@angular/cli": "~13.0.4",
     "@angular/compiler-cli": "~13.0.0",
+    "@cypress/schematic": "^1.6.0",
     "@types/jasmine": "~3.10.0",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.20.37",
     "cypress": "^9.1.1",
+    "cypress-cucumber-preprocessor": "^4.3.1",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
