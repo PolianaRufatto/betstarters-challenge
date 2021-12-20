@@ -1,0 +1,9 @@
+{
+  "Account": {
+    "email": "test@test.com",
+    "username": "usernameTest",
+    "password": "passwordTest",
+    "repeatPassword": "passwordTest",
+    "currency": "euro"
+  }
+}
