@@ -41,17 +41,17 @@ Feature: Account form
         | password        | passwordmorethan20characters | 3     |
         | repeat-password | passwordmorethan20characters | 4     |
 
-    Scenario Outline: <type> value on select currency
+    Scenario Outline: <type> value on select <field>
         When I put a <value> on currency
-        Then should <show> the message on select
+        Then should <show> the message on select <index>
         Examples:
-        |  type   | value  | show     |
-        | valid   | euro   | not show |
-        | invalid | Select | show     |
+        |  type   | field    | value  | show     | index |
+        | valid   | currency | euro   | not show | 5     |
+        | invalid | currency | Select | show     | 5     |
 
     Scenario Outline: <type> repeat password
         When I filled the password with <value>
-            And I put a <value2> password on the field repeat password
+            And I set a <value2> password on the field repeat password
         Then should <show> the message 'error-validateEqual'
         Examples:
         |  type   | value           | value2       | show     |
@@ -59,17 +59,10 @@ Feature: Account form
         | Invalid | passwordTestInv | passwordTes  | show     |
 
     Scenario Outline: Button next <prop>
-        When I filled <fields> fields
-        Then the 'next' button should be <prop>
+        When I filled <fields> fields on form account
+        Then the next button should be <prop>
+            And the button on index <index> should be <prop> 
         Examples:
-        |  prop   | fields    |
-        | disable | only some |
-        | enable  | all       |
-
-    Scenario Outline: Button form 'Person' <prop>
-        When I filled <fields> fields
-        Then the 'Person' button should be <prop>
-        Examples:
-        |  prop   | fields    |
-        | disable | only some |
-        | enable  | all       |
+        |  prop   | fields    | index |
+        | disable | only some | 1     |
+        | enable  | all       | 1     |
