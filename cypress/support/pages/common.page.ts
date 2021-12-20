@@ -34,11 +34,11 @@ class CommonPage {
     cy.get(element).should('not.exist');
   }
 
-  buttonEnableDisable(element, prop) {
+  buttonEnableDisable(textbutton, prop) {
     if (prop === 'disable') {
-      cy.get(element).should('be.disabled');
+      cy.get('button').contains(textbutton).should('be.disabled');
     } else {
-      cy.get(element).should('not.be.disabled');
+      cy.get('button').contains(textbutton).should('not.be.disabled');
     }
   }
   
@@ -48,6 +48,10 @@ class CommonPage {
     } else {
       cy.get(element).should('have.attr', 'aria-disabled', 'false');
     }
+  }
+
+  clickButton(element) {
+    cy.get(element).click();
   }
 }
 
