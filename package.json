@@ -9,8 +9,10 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "code:gherkin": "gherkin-lint -c .gherkin-lintrc.json cypress/integration",
+    "allure:generate": "allure generate --clean ./tests-results/allure-results/ -o ./tests-results/allure-report",
+    "allure:open": "allure open ./tests-results/allure-report",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --config video=false"
+    "cypress:run": "cypress run --config video=false --env allure=true"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/steps"
@@ -27,6 +29,8 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-rc.0",
+    "@shelex/cypress-allure-plugin": "^2.23.0",
+    "allure-commandline": "^2.17.2",
     "bootstrap": "^4.6.0",
     "gherkin-lint": "^4.2.2",
     "moment": "^2.29.1",
