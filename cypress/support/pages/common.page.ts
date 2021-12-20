@@ -53,6 +53,10 @@ class CommonPage {
   clickButton(element) {
     cy.get(element).click();
   }
+
+  clearInputField(element) {
+    cy.get(element).clear();
+  }
 }
 
 export const commonPage = new CommonPage();

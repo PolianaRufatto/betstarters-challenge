@@ -23,7 +23,7 @@ Feature: Person form
         | last-name    | a          | 2     | error-minlength |
         | birth-date   | aa         | 4     | error-ngbDate   |
         | birth-date   | 2011-12-08 | 4     | error-isMinor   |
-    
+
     Scenario Outline: Valid value on input <field>
         When I filled the <field> with a valid <value>
         Then should not show the <index> error mesage
@@ -32,7 +32,7 @@ Feature: Person form
         | first-name    | FirstName  | 1     |
         | last-name     | LastName   | 2     |
         | birth-date    | 1990-12-08 | 4     |
-    
+
     Scenario Outline: More than 20 characters on input <field>
         When I filled the <field> with <value>
         Then should show the message 'error-maxlength' on <index>
@@ -48,15 +48,22 @@ Feature: Person form
         |  type   | field  | value  | show     | index |
         | valid   | gender | F      | not show | 3     |
         | invalid | gender | Select | show     | 3     |
-    
+
     Scenario Outline: Button next <prop>
         When I filled <fields> fields on form person
         Then the next button should be <prop>
-            And the button on index <index> should be <prop> 
+            And the button on index <index> should be <prop>
         Examples:
-        |  prop   | fields    | index  | 
-        | disable | only some | 2      | 
+        |  prop   | fields    | index  |
+        | disable | only some | 2      |
         | enable  | all       | 2      |
 
-
-    # Scenario: previous form
+    Scenario Outline: Button Previous
+            And the previous button should be enable
+        When I go back to the previous form
+            And I <action> field
+        Then the next button should be <prop>
+        Examples:
+        |  action        | prop    |
+        | clear some     | disable |
+        | dont clear any | enable  |

@@ -9,7 +9,7 @@ class AccountPage {
     commonPage.fillInput(accountElements.inputPassword(), data.password);
     commonPage.fillInput(accountElements.inputRepeatPassword(), data.repeatPassword);
     commonPage.fillSelect(accountElements.selectCurrency(), data.currency);
-  } 
+  }
 }
 
 export const accountPage = new AccountPage();

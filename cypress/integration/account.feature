@@ -61,7 +61,7 @@ Feature: Account form
     Scenario Outline: Button next <prop>
         When I filled <fields> fields on form account
         Then the next button should be <prop>
-            And the button on index <index> should be <prop> 
+            And the button on index <index> should be <prop>
         Examples:
         |  prop   | fields    | index |
         | disable | only some | 1     |
