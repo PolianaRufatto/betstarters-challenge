@@ -8,8 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "e2e": "ng e2e",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "code:gherkin": "gherkin-lint -c .gherkin-lintrc.json cypress/integration",
+    "cypress:open": "cypress open --video=false",
+    "cypress:run": "cypress run --video=false"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/steps"
@@ -27,6 +28,7 @@
     "@angular/router": "~13.0.0",
     "@ng-bootstrap/ng-bootstrap": "^11.0.0-rc.0",
     "bootstrap": "^4.6.0",
+    "gherkin-lint": "^4.2.2",
     "moment": "^2.29.1",
     "rxjs": "~7.4.0",
     "tsify": "^5.0.4",
@@ -42,6 +44,7 @@
     "@types/node": "^12.20.37",
     "cypress": "^9.1.1",
     "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-plugin-tab": "^1.0.5",
     "jasmine-core": "~3.10.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
