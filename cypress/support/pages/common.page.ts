@@ -50,8 +50,8 @@ class CommonPage {
     }
   }
 
-  clickButton(element) {
-    cy.get(element).click();
+  clickButton(textButton) {
+    cy.get('button').contains(textButton).click();
   }
 
   clearInputField(element) {

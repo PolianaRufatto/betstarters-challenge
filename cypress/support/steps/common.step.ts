@@ -8,23 +8,23 @@ Given(/^I'm on the initial page$/, () => {
 });
 
 When(/^I not filled the (.*)$/, (field) => {
-  commonPage.notfillInput(commonElements.inputElements(field));
+  commonPage.notfillInput(commonElements.elementByID(field));
 });
 
 When(/^I filled the (.*) with a invalid (.*)$/, (field, value) => {
-  commonPage.fillInput(commonElements.inputElements(field), value);
+  commonPage.fillInput(commonElements.elementByID(field), value);
 });
 
 When(/^I filled the (.*) with a valid (.*)$/, (field, value) => {
-  commonPage.fillInput(commonElements.inputElements(field), value);
+  commonPage.fillInput(commonElements.elementByID(field), value);
 });
 
 When(/^I filled the (.*) with (.*)$/, (field, value) => {
-  commonPage.fillInput(commonElements.inputElements(field), value);
+  commonPage.fillInput(commonElements.elementByID(field), value);
 });
 
 When(/^I put a (.*) on (.*)$/, (value, field) => {
-  commonPage.fillSelect(commonElements.inputElements(field), value);
+  commonPage.fillSelect(commonElements.elementByID(field), value);
 });
 
 Then(/^should show the required message on (.*)$/, (index) => {

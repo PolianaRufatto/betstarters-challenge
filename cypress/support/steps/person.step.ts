@@ -1,7 +1,6 @@
 import { When } from 'cypress-cucumber-preprocessor/steps';
-import { accountElements, commonElements, personElements } from '../elements';
-import { accountPage, commonPage } from '../pages';
-import { personPage } from '../pages/person.page';
+import { commonElements, personElements } from '../elements';
+import { personPage, commonPage } from '../pages';
 
 const data = {
   "firstName": "FirstName",
@@ -11,7 +10,7 @@ const data = {
 }
 
 When(/^go to the next form$/, () => {
-  commonPage.clickButton(accountElements.buttonNext());
+  commonPage.clickButton('next');
 });
 
 When(/^I filled only some fields on form person$/, () => {
@@ -24,11 +23,11 @@ When(/^I filled all fields on form person$/, () => {
 });
 
 When(/^I go back to the previous form$/, () => {
-  commonPage.clickButton(personElements.buttonPrevious());
+  commonPage.clickButton('previous');
 });
 
 When(/^I clear some field$/, () => {
-  commonPage.clearInputField(commonElements.inputElements('username'));
+  commonPage.clearInputField(commonElements.elementByID('username'));
 });
 
 When(/^I dont clear any field$/, () => {
