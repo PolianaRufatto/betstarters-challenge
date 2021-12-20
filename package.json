@@ -9,8 +9,8 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "code:gherkin": "gherkin-lint -c .gherkin-lintrc.json cypress/integration",
-    "cypress:open": "cypress open --video=false",
-    "cypress:run": "cypress run --video=false"
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --config video=false"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "cypress/support/steps"
